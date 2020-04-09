@@ -1,10 +1,10 @@
-# 网络及分布式计算作业5
+# 网络及分布式计算作业6
 
 
 ## 习题23
 
 
-![avatar](./Resource/P23.png)
+![avatar](./resource/P23.png)
 
 设序号为 0（第一个 0），1，…，k-1，0（第二个 0）
 
@@ -17,7 +17,7 @@ GBN 类似，N <= k 即可
 ## 习题24
 
 
-![avatar](./Resource/P24.png)
+![avatar](./resource/P24.png)
 
 a.
 可能， ACK 还没来得及返回，发送方超时重发，之后发送方接收到 ACK 并移动窗口，那么它之前重发的分组的 ACK 将落在窗口之外
@@ -35,7 +35,7 @@ d.
 ## 习题25
 
 
-![avatar](./Resource/P25.png)
+![avatar](./resource/P25.png)
 
 
 a.
@@ -47,7 +47,7 @@ TCP 有流量控制和拥塞控制，而 UDP 没有
 
 ## 习题40
 
-![avatar](./Resource/P40.png)
+![avatar](./resource/P40.png)
 
 
 a. [1, 6] 和 [23, 26]

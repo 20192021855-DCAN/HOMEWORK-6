@@ -1,0 +1,49 @@
+P26  
+考虑从主机A向主机B传输L字节的大文件，假设MSS为536字节。 
+a. 为了使得TCP序号不至于用完，L的最大值是多少？前面讲过TCP的序号字段为4字节。
+b. 对于你在（a）中得到的L，求出传输此文件要用多长时间？假定运输层、网络层和数据链路层首部总共为66字节，并加在每个报文段上，
+然后经155Mbps链路发送得到的分组。忽略流量控制和拥塞控制，使主机A能够一个接一个和连续不断地发送这些报文段。  
+
+Answer:  
+a:因为共有四个字节，所以Lmax=2^32=4GB  
+b.因为MSS=536字节，所以共有Lmax/MSS=8012999块，又因为运输层、网络层、数据链路层共有66字节，所以共有8012999*66=528857934字节的标头  
+所以字节总数=528857936+2^32=4823825230字节 时间=4823825230*8/155*2^20=238s  
+
+P31  
+假设测量的5个SampleRTT值（参见3. 5. 3节）是106ms、120ms、140ms、90ms和115mso在获得了每个SampleRTT值后计算EstimatedRTT,
+使用a =0.125并且假设在刚获得前5个样本之后EstimatedRTT的值为100ms.在获得每个样本之后，也计算DevRTT，
+假设b=0.25,并且假设在刚获得前5个样本之后DevRTT的值为5ms。最后，在获得这些样本之后计算TCP Timeoutintervalo 
+
+Answer:  
+DevRTT = (1- beta) * DevRTT + beta * | SampleRTT - EstimatedRTT |  
+EstimatedRTT = (1-alpha) * EstimatedRTT + alpha * SampleRTT  
+TimeoutInterval = EstimatedRTT + 4 * DevRTT  
+在经过第一个SampleRTT=106ms后:  
+DevRTT = 0.755 + 0.25 * | 106 - 100 | = 5.25ms  
+EstimatedRTT = 0.875 * 100 + 0.125 * 106 = 100.75 ms  
+TimeoutInterval = 100.75+45.25 = 121.75 ms  
+在经过第二个SampleRTT=120ms后:  
+DevRTT = 0.75*5.25 + 0.25 * | 120 – 100.75 | = 8.75 ms  
+EstimatedRTT = 0.875 * 100.75 + 0.125 * 120 = 103.16 ms  
+TimeoutInterval = 103.16+48.75 = 138.16 ms  
+在经过第三个SampleRTT=140ms后:  
+DevRTT = 0.758.75 + 0.25 * | 140 – 103.16 | = 15.77 ms  
+EstimatedRTT = 0.875 * 103.16 + 0.125 * 140 = 107.76 ms  
+TimeoutInterval = 107.76+415.77 = 170.84 ms  
+在经过第四个SampleRTT=90ms后:  
+DevRTT = 0.7515.77 + 0.25 * | 90 – 107.76 | = 16.27 ms  
+EstimatedRTT = 0.875 * 107.76 + 0.125 * 90 = 105.54 ms  
+TimeoutInterval = 105.54+416.27 =170.62 ms  
+在经过最后一个SampleRTT=115ms后:  
+DevRTT = 0.7516.27 + 0.25 * | 115 – 105.54 | = 14.57 ms  
+EstimatedRTT = 0.875 * 105.54 + 0.125 * 115 = 106.72 ms  
+TimeoutInterval = 106.72+4*14.57 =165 ms  
+
+P44.考虑从一台主机经一条没有丢包的TCP连接向另一台主机发送一个大文件。  
+a. 假定TCP使用不具有慢启动的AIMD进行拥塞控制。假设每当收到一批ACK时，cwnd增加1个MSS,并且假设往返时间大约恒定，
+cwnd从6MSS增加到12MSS要花费多长时间（假设没有丢包事件）？
+b. 对于该连接，到时间=6RTT,其平均吞吐量是多少（根据MSS和RTT）? 
+
+Answer:  
+a.12-6=6RTT  
+b.(6+7+8+9+10+11)/6=8.5MSS/RTT  
